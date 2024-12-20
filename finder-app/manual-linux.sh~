@@ -17,6 +17,9 @@ CROSS_COMPILE=aarch64-none-linux-gnu-
 # where this script is running (as make is in the same directory!
 # and, we need the fully qualified dir-name, not just from where the script was called!
 MYDIR=${PWD}/$(dirname ${0})
+echo ${MYDIR}
+exit
+
 
 # here's out ARM toolchain
 ARM_TOOLCHAIN=/usr/bin/arm-toolchain/aarch64-none-linux-gnu
@@ -41,7 +44,7 @@ if [ ! -e ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ]; then
     cd linux-stable
     echo "Checking out version ${KERNEL_VERSION}"
     git checkout ${KERNEL_VERSION}
-
+echo "Make kernel"
     # TODO-done: build the kernel
     make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- mrproper
     make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- defconfig
