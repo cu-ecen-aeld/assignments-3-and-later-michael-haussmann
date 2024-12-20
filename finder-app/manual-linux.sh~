@@ -100,7 +100,7 @@ ARM_LIB_DIR=${MYDIR}/../../arm64_libs/
 cp ${ARM_LIB_DIR}/ld-linux-aarch64.so.1  ${OUTDIR}/rootfs/lib/ld-linux-aarch64.so.1
 cp ${ARM_LIB_DIR}/libm.so.6 ${OUTDIR}/rootfs/lib64/libm.so.6
 cp ${ARM_LIB_DIR}/libresolv.so.2 ${OUTDIR}/rootfs/lib64/libresolv.so.2
-cp ${ARM_LIBDIR}/libc.so.6 ${OUTDIR}/rootfs/lib64/libc.so.6
+cp ${ARM_LIB_DIR}/libc.so.6 ${OUTDIR}/rootfs/lib64/libc.so.6
 
 # TODO-done: Make device nodes
 # there are many options to create the device nodes (or not).

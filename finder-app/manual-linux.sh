@@ -18,7 +18,6 @@ CROSS_COMPILE=aarch64-none-linux-gnu-
 # and, we need the fully qualified dir-name, not just from where the script was called!
 MYDIR=${PWD}/$(dirname ${0})
 
-
 # here's out ARM toolchain
 ARM_TOOLCHAIN=/usr/bin/arm-toolchain/aarch64-none-linux-gnu
 
