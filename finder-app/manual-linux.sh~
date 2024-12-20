@@ -123,9 +123,8 @@ cp ./finder-test.sh ${OUTDIR}/rootfs/home/.
 cp ./writer  ${OUTDIR}/rootfs/home/.
 
 #and the assignment related files
-mkdir -p ${OUTDIR}/rootfs/home/conf
-cp conf/username.txt ${OUTDIR}/rootfs/home/conf/username.txt
-cp conf/assignment.txt ${OUTDIR}/rootfs/home/conf/assignment.txt
+cp conf/username.txt ${OUTDIR}/rootfs/home/username.txt
+cp conf/assignment.txt ${OUTDIR}/rootfs/home/assignment.txt
 cp ./autorun-qemu.sh ${OUTDIR}/rootfs/home/autorun-qemu.sh
 
 # TODO-done: Chown the root directory
