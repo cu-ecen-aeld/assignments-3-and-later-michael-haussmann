@@ -25,5 +25,7 @@ int main(int argc, char * argv[]) {
   fprintf( fptr, "%s", argv[2]);
   
   fclose(fptr); /* you better close the file on exit ;-) */
+
+  return(0);
   
 }

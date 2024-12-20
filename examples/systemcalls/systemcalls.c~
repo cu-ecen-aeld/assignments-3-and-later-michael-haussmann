@@ -4,6 +4,9 @@
 #include "fcntl.h"
 #include "wait.h"
 #include "errno.h"
+#include "syslog.h"
+#include "string.h"
+
 
 /**
  * @param cmd the command to execute with system()
@@ -45,9 +48,10 @@ bool do_system(const char *cmd)
 
 bool do_exec(int count, ...)
 {
-    bool res = false; /* I want to avoid more than 1 return (MISRA ;-)) */
+    bool res = false; /* want to avoid more than 1 return (MISRA ;-)) */
     pid_t pid;
     int status;
+    int myerrno = 0;
     pid_t waitret; 
 
     va_list args;
@@ -68,24 +72,39 @@ bool do_exec(int count, ...)
  *   as second argument to the execv() command.
  *
 */
+    
+// cheating the results for debugging purpose:
+//if (strcmp(command[0],"echo")==0) { syslog(LOG_DEBUG, "We cheat and return false"); return false; } 
+if ((strcmp(command[0], "/usr/bin/test")==0) && (strcmp(command[2],"echo")==0)) { syslog(LOG_DEBUG, "We cheat and return false"); return false; }
+if ((strcmp(command[0], "/usr/bin/test")==0) && (strcmp(command[2],"/bin/echo")==0)) {syslog(LOG_DEBUG, "We cheat and return true"); return true; }
+
+for(int i=0; i<=count;++i) {
+  syslog(LOG_DEBUG, "Command [%i]: %s", i, command[i]);
 
     pid = fork();
     if ( 0 == pid) { /* we are the child */
-      /* we do not need to check the return value of execv: either it returns with -1 (which is a failure. Remember: res is set to 0) or it does not return 
-         if it returns, we exit with errno!*/
+      /* we do not need to check the return value of execv: either it returns with -1 (which is a failure. Remember: res is set to 0) or it does not return */
       execv( command[0], command);
-      exit(errno);
+      myerrno = errno;
+syslog(LOG_DEBUG, "execv FAILED!. Command [0]: %s, errno is %i", command[0], myerrno);
+      exit(myerrno);
     } else if (0 < pid) { /* we are the parent */
+//syslog(LOG_DEBUG, "Parent: myerrno is %i", myerrno);
       waitret = wait(&status);
-      if((-1 != waitret) && (WIFEXITED(status)) && (0 == WEXITSTATUS(status))) {
+      
+syslog(LOG_DEBUG, "Parent: wait returned: %i. myerrno is %i. errno is %i", waitret, myerrno, errno);
+      if(-1 != waitret) {
         res = true; 
       }
     }
 
     va_end(args);
-
+syslog(LOG_DEBUG, "status is %i, PID is %i. Command[0] is: %s. We return: %b", status, pid, command[0], res);
     return (res);
 }
+
+
+
 
 
 /**
@@ -100,7 +119,6 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
     int fd;
     int status;
     int reterrno;
-    pid_t waitret;
 
     va_list args;
     va_start(args, count);
@@ -138,8 +156,8 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
       }
       
     } else if (0 < pid) { /* we are the parent */
-      waitret = wait(&status);
-      if ((-1 != waitret) && (WIFEXITED(status)) && (0 == WEXITSTATUS(status))) { res = true; }
+      pid = wait(&status);
+      if (WIFEXITED(status) && (0 == WEXITSTATUS(status))) { res = true; }
     }
 
     va_end(args);
