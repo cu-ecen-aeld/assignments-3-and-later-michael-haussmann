@@ -96,7 +96,7 @@ ${CROSS_COMPILE}readelf -a "$OUTDIR"/rootfs/bin/busybox | grep "Shared library"
 
 # TODO-done: Add library dependencies to rootfs
 
-ARM_LIB_DIR=${MYDIR}/../../arm64_libs/
+ARM_LIB_DIR=${MYDIR}/../../arm64_libs
 
 cp ${ARM_LIB_DIR}/ld-linux-aarch64.so.1  ${OUTDIR}/rootfs/lib/ld-linux-aarch64.so.1
 cp ${ARM_LIB_DIR}/libm.so.6 ${OUTDIR}/rootfs/lib64/libm.so.6

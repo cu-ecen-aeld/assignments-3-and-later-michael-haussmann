@@ -13,13 +13,12 @@ FINDER_APP_DIR=$(realpath $(dirname $0))
 ARCH=arm64
 CROSS_COMPILE=aarch64-none-linux-gnu-
 
-# later, when we call make to build the write app, we need to know from
-# where this script is running (as make is in the same directory!
-# and, we need the fully qualified dir-name, not just from where the script was called!
-MYDIR=${PWD}/$(dirname ${0})
-echo ${MYDIR}
-exit
-
+# later, when we call make to build the write app, we need to know 
+# a basedire as e.g. "make busybox" changes the directory
+# we cannot determin where this script is running (which should be the same directory)
+# as this script is also used by the github-runner and there, the directory is completely different
+# we need the dir on the local host!
+MYDIR=/home/mh11/devel/Coursera/aesd-assignments/finder-app
 
 # here's out ARM toolchain
 ARM_TOOLCHAIN=/usr/bin/arm-toolchain/aarch64-none-linux-gnu
