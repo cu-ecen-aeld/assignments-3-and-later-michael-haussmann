@@ -41,7 +41,7 @@ if [ ! -e ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ]; then
     cd linux-stable
     echo "Checking out version ${KERNEL_VERSION}"
     git checkout ${KERNEL_VERSION}
-
+echo "Make kernel"
     # TODO-done: build the kernel
     make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- mrproper
     make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- defconfig
