@@ -18,6 +18,7 @@ CROSS_COMPILE=aarch64-none-linux-gnu-
 # and, we need the fully qualified dir-name, not just from where the script was called!
 MYDIR=${PWD}/$(dirname ${0})
 
+
 # here's out ARM toolchain
 ARM_TOOLCHAIN=/usr/bin/arm-toolchain/aarch64-none-linux-gnu
 
@@ -94,12 +95,12 @@ ${CROSS_COMPILE}readelf -a "$OUTDIR"/rootfs/bin/busybox | grep "Shared library"
 
 # TODO-done: Add library dependencies to rootfs
 
-ARM_TOOLCHAIN=/usr/bin/arm-toolchain/aarch64-none-linux-gnu
+ARM_LIB_DIR=${MYDIR}/../../arm64_libs/
 
-cp ${ARM_TOOLCHAIN}/libc/lib/ld-linux-aarch64.so.1  ${OUTDIR}/rootfs/lib/ld-linux-aarch64.so.1
-cp ${ARM_TOOLCHAIN}/libc/lib64/libm.so.6 ${OUTDIR}/rootfs/lib64/libm.so.6
-cp ${ARM_TOOLCHAIN}/libc/lib64/libresolv.so.2 ${OUTDIR}/rootfs/lib64/libresolv.so.2
-cp ${ARM_TOOLCHAIN}/libc/lib64/libc.so.6 ${OUTDIR}/rootfs/lib64/libc.so.6
+cp ${ARM_LIB_DIR}/ld-linux-aarch64.so.1  ${OUTDIR}/rootfs/lib/ld-linux-aarch64.so.1
+cp ${ARM_LIB_DIR}/libm.so.6 ${OUTDIR}/rootfs/lib64/libm.so.6
+cp ${ARM_LIB_DIR}/libresolv.so.2 ${OUTDIR}/rootfs/lib64/libresolv.so.2
+cp ${ARM_LIBDIR}/libc.so.6 ${OUTDIR}/rootfs/lib64/libc.so.6
 
 # TODO-done: Make device nodes
 # there are many options to create the device nodes (or not).
