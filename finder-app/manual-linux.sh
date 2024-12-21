@@ -96,12 +96,12 @@ ${CROSS_COMPILE}readelf -a "$OUTDIR"/rootfs/bin/busybox | grep "Shared library"
 
 # TODO-done: Add library dependencies to rootfs
 
-ARM_LIB_DIR=${MYDIR}/arm64_libs
+cd ${MYDIR}/arm64_libs
 
-cp ${ARM_LIB_DIR}/ld-linux-aarch64.so.1  ${OUTDIR}/rootfs/lib/ld-linux-aarch64.so.1
-cp ${ARM_LIB_DIR}/libm.so.6 ${OUTDIR}/rootfs/lib64/libm.so.6
-cp ${ARM_LIB_DIR}/libresolv.so.2 ${OUTDIR}/rootfs/lib64/libresolv.so.2
-cp ${ARM_LIB_DIR}/libc.so.6 ${OUTDIR}/rootfs/lib64/libc.so.6
+cp ./ld-linux-aarch64.so.1  ${OUTDIR}/rootfs/lib/ld-linux-aarch64.so.1
+cp ./libm.so.6 ${OUTDIR}/rootfs/lib64/libm.so.6
+cp ./libresolv.so.2 ${OUTDIR}/rootfs/lib64/libresolv.so.2
+cp ./libc.so.6 ${OUTDIR}/rootfs/lib64/libc.so.6
 
 # TODO-done: Make device nodes
 # there are many options to create the device nodes (or not).
