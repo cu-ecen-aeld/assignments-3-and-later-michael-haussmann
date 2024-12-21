@@ -18,7 +18,6 @@ CROSS_COMPILE=aarch64-none-linux-gnu-
 # we cannot determin where this script is running (which should be the same directory)
 # as this script is also used by the github-runner and there, the directory is completely different
 # we need the dir on the local host!
-${FINDER_APP_DIR}/..
 
 if [ $# -lt 1 ]
 then
