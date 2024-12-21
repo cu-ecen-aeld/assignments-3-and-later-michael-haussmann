@@ -18,10 +18,10 @@ CROSS_COMPILE=aarch64-none-linux-gnu-
 # we cannot determin where this script is running (which should be the same directory)
 # as this script is also used by the github-runner and there, the directory is completely different
 # we need the dir on the local host!
+echo ${FINDER_APP_DIR}
 MYDIR=/home/mh11/devel/Coursera/aesd-assignments
-
-# here's out ARM toolchain
-ARM_TOOLCHAIN=/usr/bin/arm-toolchain/aarch64-none-linux-gnu
+echo ${MYDIR}
+exit
 
 if [ $# -lt 1 ]
 then
@@ -50,8 +50,6 @@ echo "Make kernel"
     make -j4 ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- all
     make -j4 ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- modules
     make -j4 ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- dtbs
-
-
 fi
 
 echo "Adding the Image in outdir"
@@ -96,12 +94,12 @@ ${CROSS_COMPILE}readelf -a "$OUTDIR"/rootfs/bin/busybox | grep "Shared library"
 
 # TODO-done: Add library dependencies to rootfs
 
-ARM_LIB_DIR=${MYDIR}/arm64_libs
+cd ${MYDIR}/arm64_libs
 
-cp ${ARM_LIB_DIR}/ld-linux-aarch64.so.1  ${OUTDIR}/rootfs/lib/ld-linux-aarch64.so.1
-cp ${ARM_LIB_DIR}/libm.so.6 ${OUTDIR}/rootfs/lib64/libm.so.6
-cp ${ARM_LIB_DIR}/libresolv.so.2 ${OUTDIR}/rootfs/lib64/libresolv.so.2
-cp ${ARM_LIB_DIR}/libc.so.6 ${OUTDIR}/rootfs/lib64/libc.so.6
+cp ./ld-linux-aarch64.so.1  ${OUTDIR}/rootfs/lib/ld-linux-aarch64.so.1
+cp ./libm.so.6 ${OUTDIR}/rootfs/lib64/libm.so.6
+cp ./libresolv.so.2 ${OUTDIR}/rootfs/lib64/libresolv.so.2
+cp ./libc.so.6 ${OUTDIR}/rootfs/lib64/libc.so.6
 
 # TODO-done: Make device nodes
 # there are many options to create the device nodes (or not).

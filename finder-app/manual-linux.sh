@@ -18,10 +18,7 @@ CROSS_COMPILE=aarch64-none-linux-gnu-
 # we cannot determin where this script is running (which should be the same directory)
 # as this script is also used by the github-runner and there, the directory is completely different
 # we need the dir on the local host!
-MYDIR=/home/mh11/devel/Coursera/aesd-assignments
-
-# here's out ARM toolchain
-ARM_TOOLCHAIN=/usr/bin/arm-toolchain/aarch64-none-linux-gnu
+${FINDER_APP_DIR}/..
 
 if [ $# -lt 1 ]
 then
@@ -50,8 +47,6 @@ echo "Make kernel"
     make -j4 ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- all
     make -j4 ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- modules
     make -j4 ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- dtbs
-
-
 fi
 
 echo "Adding the Image in outdir"
@@ -96,7 +91,7 @@ ${CROSS_COMPILE}readelf -a "$OUTDIR"/rootfs/bin/busybox | grep "Shared library"
 
 # TODO-done: Add library dependencies to rootfs
 
-cd ${MYDIR}/arm64_libs
+cd ${FINDER_APP_DIR}/../arm64_libs
 
 cp ./ld-linux-aarch64.so.1  ${OUTDIR}/rootfs/lib/ld-linux-aarch64.so.1
 cp ./libm.so.6 ${OUTDIR}/rootfs/lib64/libm.so.6
@@ -113,7 +108,7 @@ sudo mknod -m 666 ${OUTDIR}/rootfs/dev/null c 1 3
 sudo mknod -m 666 ${OUTDIR}/rootfs/dev/ttyAMA0 c 5 1 
 
 # TODO-done: Clean and build the writer utility
-cd $MYDIR
+cd ${FINDER_APP_DIR}
 make clean
 make CROSS_COMPILE=$CROSS_COMPILE
 
