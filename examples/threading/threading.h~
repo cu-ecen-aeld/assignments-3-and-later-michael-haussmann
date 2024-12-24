@@ -9,15 +9,15 @@
  */
 struct thread_data{
     /*
-     * TODO-DONE: add other values your thread will need to manage
+     * TODO: add other values your thread will need to manage
      * into this structure, use this structure to communicate
      * between the start_thread_obtaining_mutex function and
      * your thread implementation.
      */
 
-    int wait_to_obtain_ms;    /* used to wait before trying to lock the mutex */
-    int wait_to_release_ms;   /* used to wait after mutex was locked, before releasing the mutext */
-    pthread_mutex_t *mutex;   /* the mutex itself -> lock data, not code! */
+    int wait_to_obtain_ms;
+    int wait_to_release_ms;
+    pthread_mutex_t *mutex;
 
     /**
      * Set to true if the thread completed with success, false
