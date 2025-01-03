@@ -12,7 +12,7 @@
 #include <errno.h>
 #include <signal.h>
 
-//#define debug
+#define debug
 
 // some defines
 #define listenport "9000" 		// port on which we listen for connections
